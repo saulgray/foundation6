@@ -31,18 +31,18 @@ p{
   align-items: center;
 }
 
-
-// .navWrap{
-//   background: $test;
-// }
+.navWrap{
+  background: $test;
+}
 nav{
+  a{
+  color: $black !important;
+}
   .top-bar-left img{
     height: 65px;
   }
   .top-bar-right ul:first-child{
     padding-top: 24px;
-    z-index: 10000;
-    display: block;
   }
 }
 
@@ -202,11 +202,11 @@ nav{
 #newsWrap{
   background-color: $medium-gray;
   #newsFeed ul{
-    @include grid-row(27);
+    @include grid-row();
     li{
       // margin-right: $pad;
       background-color: $test;
-      @include grid-column(9);
+      @include grid-column(4);
       // padding-right: $pad;
       .tweet{
        font-weight: 300;
