@@ -3,9 +3,12 @@
 @import 'settings';
 @import 'foundation';
 @import 'motion-ui';
+@import 'font-awesome';
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900);
 
 @include foundation-global-styles;
-@include foundation-grid;
+// @include foundation-grid;
+@include foundation-flex-grid;
 @include foundation-typography;
 @include foundation-button;
 @include foundation-forms;
@@ -42,3 +45,5 @@
 
 @include motion-ui-transitions;
 @include motion-ui-animations;
+
+@import 'custom';

@@ -6,12 +6,14 @@ var panini   = require('panini');
 var rimraf   = require('rimraf');
 var sequence = require('run-sequence');
 var sherpa   = require('style-sherpa');
+var i18n     = require('gulp-i18n-gspreadsheet');
+var config   = require('./config.json');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
 
 // Port to use for the development server.
-var PORT = 8000;
+var PORT = 8765;
 
 // Browsers to target when prefixing CSS.
 var COMPATIBILITY = ['last 2 versions', 'ie >= 9'];
@@ -24,7 +26,8 @@ var PATHS = {
   ],
   sass: [
     'bower_components/foundation-sites/scss',
-    'bower_components/motion-ui/src/'
+    'bower_components/motion-ui/src/',
+    'bower_components/font-awesome/scss'
   ],
   javascript: [
     'bower_components/jquery/dist/jquery.js',
@@ -51,6 +54,10 @@ var PATHS = {
     'bower_components/foundation-sites/js/foundation.tabs.js',
     'bower_components/foundation-sites/js/foundation.toggler.js',
     'bower_components/foundation-sites/js/foundation.tooltip.js',
+    // Path to non-foundation JS components
+    'bower_components/twitter-fetcher/js/twitterFetcher.js',
+    'bower_components/i18next/i18next.js',
+
     'src/assets/js/!(app.js)**/*.js',
     'src/assets/js/app.js'
   ]
@@ -139,6 +146,12 @@ gulp.task('javascript', function() {
     .pipe(gulp.dest('dist/assets/js'));
 });
 
+// Copy fontawesome font icons to dist folder
+gulp.task('fonts', function() {
+gulp.src('bower_components/font-awesome/fonts/**.*')
+  .pipe(gulp.dest('dist/assets/fonts/'));
+});
+
 // Copy images to the "dist" folder
 // In production, the images are compressed
 gulp.task('images', function() {
@@ -153,8 +166,26 @@ gulp.task('images', function() {
 
 // Build the "dist" folder by running all of the above tasks
 gulp.task('build', function(done) {
-  sequence('clean', ['pages', 'sass', 'javascript', 'images', 'copy'], 'styleguide', done);
+  sequence('clean', ['pages', 'sass', 'javascript', 'images', 'copy', 'fonts'], 'styleguide', done);
 });
+
+// google spreadsheet i18n.
+// Pulls columns from gspreadsheet and puts each column in seperate json file.
+gulp.src('src/*')
+.pipe(i18n({
+    private_key_id: (config.privateKeyId),
+    private_key: (config.privateKey),
+    client_email: 'account-1@i18n-1147.iam.gserviceaccount.com',
+    client_id: '111697229074384724430',
+    type: 'service_account',
+    document_key: '1dCO6KpecxgB577Fd0Gk0W-h9NuwTwPyDB7lysiNSZ34',
+    default_locale: 'en',
+    write_default_translations: 'true',
+    key_column: 'key',
+    ext: '.json',
+    output_dir: 'locales/'
+}))
+.pipe(gulp.dest('dist/assets/'));
 
 // Start a server with LiveReload to preview the site in
 gulp.task('server', ['build'], function() {
