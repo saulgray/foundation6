@@ -12,7 +12,6 @@ footer .row .row{
   padding-left: 0 !important;
   padding-right: 0 !important;
   margin-left: 0;
-  // margin-right: 0;
 }
 // FOUNDATION OVERRIDES --END
 
@@ -49,7 +48,10 @@ nav{
 
 
 
-
+.client{
+  background: url(../img/clientBackground.jpg);
+  background-size: cover;
+}
 .client .columns{
   background: $test;
   border: $borderTest;
@@ -99,6 +101,9 @@ nav{
 
 
 .bubbleWrap{
+  &.row{
+    max-width: 1400px;
+  }
   .column{
     background-color: $test;
     border: $borderTest;
@@ -116,7 +121,13 @@ nav{
 }
 
 
+#buy{
+  background: url(../img/geometry.png);
+  padding-top: $pad * 6;
+  padding-bottom: $pad * 6;
+  // margin-bottom: -45px;
 
+}
 #buyWrap{
   text-align: center;
   img{
@@ -174,9 +185,26 @@ nav{
 }
 
 
+
+
+
+
+
+.divTopper img{
+  width: 100%;
+  // padding-top: -45px;
+  // background: blue;
+  // margin-bottom: 0;
+  // padding-bottom: 0;
+}
+#help{
+  // // margin-top: -20px;
+  // background: pink;
+
+}
 .helpWrap{
-  margin-top: 80px;
-  margin-bottom: 80px;
+  padding-top: 80px;
+  padding-bottom: 80px;
   font-weight: 300;
   .fa-square{
     color: $light-gray;
