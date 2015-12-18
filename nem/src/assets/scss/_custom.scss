@@ -335,17 +335,18 @@ nav{
 
 #newsWrap{
   background-color: $medium-gray;
+  padding-top: $pad * 5;
+  padding-bottom: $pad * 5;
   #newsFeed ul{
     @include grid-row();
     li{
-      padding-right: $pad;
+      // margin-right: $pad;
+      // margin-left: -$pad;
       background-color: $white;
       @include grid-column(4);
       // padding-right: $pad;
       .tweet{
        font-weight: 300;
-       margin-top: 25%;
-       margin-bottom: 20%;
        overflow: hidden !important;
       }
       a span{
@@ -353,10 +354,55 @@ nav{
          color: $green !important;
       }
     }
+    @include breakpoint(med-large up) {
+    li:first-of-type{
+      width: calc(33.33% - 13px);
+      min-height: 360px;
+      .tweet{
+        margin-top: 25%;
+        margin-bottom: 20%;
+      }
+    }
+    li:nth-of-type(2){
+      width: calc(33.33% - 14px);
+      margin-right: $pad;
+      margin-left: $pad;
+      min-height: 360px;
+      .tweet{
+        margin-top: 25%;
+        margin-bottom: 20%;
+      }
+    }
     li:last-of-type{
-      // margin-right: 0;
+      // margin-right: -$pad;
+      width: calc(33.33% - 13px);
+      min-height: 360px;
+      .tweet{
+        margin-top: 25%;
+        margin-bottom: 20%;
+      }
     }
   }
+  @include breakpoint(medium down) {
+  li:first-of-type{
+    width: calc(100%);
+    margin-bottom: $pad;
+        // min-height: 360px;
+  }
+  li:nth-of-type(2){
+    width: calc(100%);
+        margin-bottom: $pad;
+
+  }
+  li:last-of-type{
+    width: calc(100%);
+
+  }
+}
+  }
+}
+#newsFeed{
+
 }
 .user a span:first-of-type {
    display:none;
@@ -372,12 +418,14 @@ nav{
    font-weight: 500 !important;
 }
 .tweet{
-   margin-top: 85px;
+   margin-top: 60px;
 }
 .timePosted{
-   margin-left: 15px;
-   color: $dark-gray !important;
+   text-align: right;
    font-weight: 300;
+   a{
+     color: $black;
+   }
 }
 .media img{
   display: block;
